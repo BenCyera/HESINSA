@@ -1,0 +1,84 @@
+<!-- templates/tweet/home.html -->
+
+{% extends 'base.html' %}
+{% block title %}
+    메인페이지
+{% endblock %}
+
+{% block content %}
+    <div class="container timeline-container">
+        <div class="row">
+            <!-- 글을 작성 하는 곳 -->
+            <table class="table caption-top" style="margin-top: 40px; text-align: center;">
+                <caption style="margin-bottom: 10px;">List of HOOD</caption>
+                <thead class="table-dark" style="white-space: nowrap;">
+                <tr>
+                    <th scope="col">IN Date</th>
+                    <th scope="col">OUT Date</th>
+                    <th scope="col">CORD</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">INVEN</th>
+                    <th scope="col">PRICE</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% for prod in product %}
+                    <tr>
+                        <td>{{ prod.input_date }}</td>
+                        <td>{{ prod.output_date }}</td>
+                        <td>{{ prod.code }}</td>
+                        <td>{{ prod.name }}</td>
+                        <td>{{ prod.size }}</td>
+                        <td>{{ prod.inventory }}</td>
+                        <td>{{ prod.price }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 20px;">재고가 없습니다.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div style="margin: 50px auto; "></div>
+            <table class="table table-striped caption-top" style="text-align: center;">
+                <caption style="margin-bottom: 10px;">List of FREE size</caption>
+                <thead style="white-space: nowrap;">
+                <tr>
+                    <th scope="col">IN Date</th>
+                    <th scope="col">OUT Date</th>
+                    <th scope="col">CORD</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">INVEN</th>
+                    <th scope="col">PRICE</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for prod_f in product_free %}
+                    <tr>
+                        <td>{{ prod_f.input_date }}</td>
+                        <td>{{ prod_f.output_date }}</td>
+                        <td>{{ prod_f.code }}</td>
+                        <td>{{ prod_f.name }}</td>
+                        <td>{{ prod_f.size }}</td>
+                        <td>{{ prod_f.inventory }}</td>
+                        <td>{{ prod_f.price }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 20px;">재고가 없습니다.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; float: right;">
+            <a href="/cont/">
+                <button type="button" class="btn btn-dark"
+                        style="margin: 50px 10px; padding: 8px 15px; letter-spacing: 1px;">Container
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

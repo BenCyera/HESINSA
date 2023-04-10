@@ -1,0 +1,128 @@
+<!-- templates/tweet/home.html -->
+
+{% extends 'base.html' %}
+{% block title %}
+    재고현황
+{% endblock %}
+
+{% block content %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 전체 선택 체크박스 클릭 이벤트
+            $("#select_all").click(function () {
+                $(".select_row").prop("checked", this.checked);
+            });
+
+            // 각 행 체크박스 클릭 이벤트
+            $(".select_row").click(function () {
+                if ($(".select_row:checked").length == $(".select_row").length) {
+                    $("#select_all").prop("checked", true);
+                } else {
+                    $("#select_all").prop("checked", false);
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            // 전체 선택 체크박스 클릭 이벤트
+            $("#select_all_f").click(function () {
+                $(".select_row_f").prop("checked", this.checked);
+            });
+
+            // 각 행 체크박스 클릭 이벤트
+            $(".select_row_f").click(function () {
+                if ($(".select_row_f:checked").length == $(".select_row_f").length) {
+                    $("#select_all_f").prop("checked", true);
+                } else {
+                    $("#select_all_f").prop("checked", false);
+                }
+            });
+        });
+    </script>
+
+
+    <div class="container timeline-container">
+        <h3 style="margin: 30px 20px 20px;">Container</h3>
+        <div class="row">
+            <table class="table caption-top" style="margin-top: 40px; text-align: center;">
+                <caption style="margin-bottom: 10px;">List of HOOD</caption>
+                <thead class="table-dark" style="white-space: nowrap;">
+                <tr>
+                    <th scope="col">IN Date</th>
+                    <th scope="col">OUT Date</th>
+                    <th scope="col">CORD</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">INVEN</th>
+                    <th scope="col">PRICE</th>
+                    <th><input class="form-check-input" type="checkbox" id="select_all" value=""></th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <form action="/input_view/" method="post">
+                    {% csrf_token %}
+                    {% for prod in product %}
+                        <tr>
+                            <td>{{ prod.input_date }}</td>
+                            <td>{{ prod.output_date }}</td>
+                            <td>{{ prod.code }}</td>
+                            <td>{{ prod.name }}</td>
+                            <td>{{ prod.size }}</td>
+                            <td>{{ prod.inventory }}</td>
+                            <td>{{ prod.price }}</td>
+                            <td><input class="form-check-input select_row" name="data_1" type="checkbox" value="{{ prod.code }}"></td>
+                        </tr>
+                    {% endfor %}
+                </form>
+                </tbody>
+            </table>
+            <div style="margin: 50px auto;"></div>
+            <table class="table table-striped caption-top" style="text-align: center;">
+                <caption style="margin-bottom: 10px;">List of FREE size</caption>
+                <thead style="white-space: nowrap;">
+                <tr>
+                    <th scope="col">IN Date</th>
+                    <th scope="col">OUT Date</th>
+                    <th scope="col">CORD</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">INVEN</th>
+                    <th scope="col">PRICE</th>
+                    <th><input class="form-check-input" type="checkbox" id="select_all_f" value=""></th>
+                </tr>
+                </thead>
+                <tbody>
+                <form action="/input_view/" method="post">
+                    {% csrf_token %}
+                    {% for prod_f in product_free %}
+                        <tr>
+                            <td>{{ prod_f.input_date }}</td>
+                            <td>{{ prod_f.output_date }}</td>
+                            <td>{{ prod_f.code }}</td>
+                            <td>{{ prod_f.name }}</td>
+                            <td>{{ prod_f.size }}</td>
+                            <td>{{ prod_f.inventory }}</td>
+                            <td>{{ prod_f.price }}</td>
+                            <td><input class="form-check-input select_row_f" name="data_2" type="checkbox" value="{{ prod_f.code }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </form>
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; float: right;">
+            <a href="/input">
+                <button type="button" class="btn btn-dark"
+                        style="margin: 50px 10px; padding: 8px 15px; letter-spacing: 1px;">INPUT
+                </button>
+            </a>
+            <a href="/output">
+                <button type="button" class="btn btn-dark"
+                        style="margin: 50px 10px; padding: 8px 15px; letter-spacing: 1px;">OUTPUT
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

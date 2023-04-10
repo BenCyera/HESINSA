@@ -1,0 +1,75 @@
+<!-- templates/tweet/home.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    입고 관리
+{% endblock %}
+
+{% block content %}
+    <div class="container timeline-container">
+        <div class="row">
+            <!-- 글을 작성 하는 곳 -->
+            <table class="table caption-top" style="margin-top: 40px; text-align: center;">
+                <caption style="margin-bottom: 10px;">List of HOOD</caption>
+                <thead class="table-dark" style="white-space: nowrap;">
+                <tr>
+                    <th scope="col">CORD</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">DESCRIPTION</th>
+                </tr>
+                <tr>
+                    <th colspan="2" style="text-align: center; padding: 20px;">INVEN</th>
+                    <th colspan="2" style="text-align: center; padding: 20px;">PRICE</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% for hood in select_hood %}
+                    <tr>
+                        <td>{{ hood.code }}</td>
+                        <td>{{ hood.name }}</td>
+                        <td>{{ hood.size }}</td>
+                        <td>{{ hood.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ hood.inventory }}</td>
+                        <td>{{ hood.price }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div style="margin: 50px auto;"></div>
+            <table class="table table-striped caption-top" style="text-align: center;">
+                <caption style="margin-bottom: 10px;">List of FREE size</caption>
+                <thead style="white-space: nowrap;">
+                <tr>
+                    <th scope="col">CORD</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">DESCRIPTION</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for prod_f in product_free %}
+                    <tr>
+                        <td>{{ prod_f.input_date }}</td>
+                        <td>{{ prod_f.output_date }}</td>
+                        <td>{{ prod_f.code }}</td>
+                        <td>{{ prod_f.name }}</td>
+                        <td>{{ prod_f.size }}</td>
+                        <td>{{ prod_f.inventory }}</td>
+                        <td>{{ prod_f.price }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="/cont">
+            <button type="button" class="btn btn-dark"
+                    style="float: right; margin: 50px 20px; padding: 8px 15px; letter-spacing: 1px;">SUBMIT
+            </button>
+        </a>
+    </div>
+{% endblock %}
